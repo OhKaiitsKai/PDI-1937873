@@ -3,6 +3,7 @@ using AForge.Video.DirectShow;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Emgu.CV;
 
 
 namespace PDI_1937873
@@ -45,6 +46,7 @@ namespace PDI_1937873
                 (filterInfoCollection[comboBox1.SelectedIndex].MonikerString);
             videoCaptureDevice.NewFrame += videoCaptureDevice_NewFrame;
             videoCaptureDevice.Start();
+            RT_ControlRemoved();
         }
         private void videoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
@@ -108,6 +110,19 @@ namespace PDI_1937873
         private void RT_FormClosed(object sender, FormClosedEventArgs e)
         {
             WebCamClose();
+            Application.Exit();
+        }
+
+        private void RT_ControlRemoved()
+        {
+            label2.Visible = false;
+            comboBox1.Visible = false;
+            button1.Visible = false;
+        }
+
+        private void textBox1_ReadOnlyChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

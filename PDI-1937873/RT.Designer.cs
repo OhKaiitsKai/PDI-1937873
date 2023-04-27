@@ -67,11 +67,14 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.textBox1.Location = new System.Drawing.Point(64, 495);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(113, 45);
             this.textBox1.TabIndex = 13;
+            this.textBox1.ReadOnlyChanged += new System.EventHandler(this.textBox1_ReadOnlyChanged);
             // 
             // label1
             // 
