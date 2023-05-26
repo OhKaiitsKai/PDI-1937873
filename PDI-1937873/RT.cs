@@ -63,6 +63,9 @@ namespace PDI_1937873
             detectedFaces.Clear();
             // Store all detected faces
             detectedFaces.AddRange(rectangles);
+            // Update the text box with the number of detected faces
+            if (textBox1.IsDisposed) return;
+            textBox1.BeginInvoke((MethodInvoker)(() => textBox1.Text = detectedFaces.Count.ToString()));
 
             // Draw rectangles for all detected faces
             using (Graphics graphics = Graphics.FromImage(bitmap))
@@ -114,6 +117,7 @@ namespace PDI_1937873
                 videoCaptureDevice.SignalToStop();
                 videoCaptureDevice = null;
             }
+           
         }
 
         private void RT_FormClosing(object sender, FormClosingEventArgs e)

@@ -16,5 +16,19 @@ namespace PDI_1937873
         {
             InitializeComponent();
         }
+
+        private void imágenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Imgs imgs = new Imgs();
+            imgs.Show();
+        }
+
+        private void contarPersonasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            RT mainRT = new RT();
+            mainRT.Show();
+        }
     }
 }

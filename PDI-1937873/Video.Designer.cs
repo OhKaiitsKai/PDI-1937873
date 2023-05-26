@@ -58,7 +58,7 @@
             this.groupBox1.Controls.Add(this.trackBar2);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.groupBox1.Location = new System.Drawing.Point(747, 119);
+            this.groupBox1.Location = new System.Drawing.Point(759, 153);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(271, 232);
             this.groupBox1.TabIndex = 13;
@@ -68,7 +68,7 @@
             // trackBar3
             // 
             this.trackBar3.BackColor = System.Drawing.Color.Blue;
-            this.trackBar3.Location = new System.Drawing.Point(6, 170);
+            this.trackBar3.Location = new System.Drawing.Point(6, 161);
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(259, 56);
             this.trackBar3.TabIndex = 2;
@@ -106,7 +106,7 @@
             this.button1.BackColor = System.Drawing.Color.Indigo;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button1.Location = new System.Drawing.Point(44, 119);
+            this.button1.Location = new System.Drawing.Point(776, 85);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(163, 51);
             this.button1.TabIndex = 11;
@@ -116,7 +116,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(298, 475);
+            this.comboBox1.Location = new System.Drawing.Point(117, 475);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(307, 24);
             this.comboBox1.TabIndex = 10;
@@ -126,7 +126,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.label1.Location = new System.Drawing.Point(155, 460);
+            this.label1.Location = new System.Drawing.Point(12, 475);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 39);
             this.label1.TabIndex = 9;
@@ -135,17 +135,17 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.pictureBox1.Location = new System.Drawing.Point(237, 88);
+            this.pictureBox1.Location = new System.Drawing.Point(35, 52);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(504, 287);
+            this.pictureBox1.Size = new System.Drawing.Size(690, 333);
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
             // trackBar4
             // 
-            this.trackBar4.Location = new System.Drawing.Point(237, 399);
+            this.trackBar4.Location = new System.Drawing.Point(35, 401);
             this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(504, 56);
+            this.trackBar4.Size = new System.Drawing.Size(706, 56);
             this.trackBar4.TabIndex = 14;
             // 
             // menuStrip1
@@ -156,7 +156,7 @@
             this.webcamToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1057, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1057, 30);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,7 +165,7 @@
             this.filtrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imágenesToolStripMenuItem});
             this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(63, 26);
             this.filtrosToolStripMenuItem.Text = "Filtros";
             // 
             // imágenesToolStripMenuItem
@@ -173,13 +173,14 @@
             this.imágenesToolStripMenuItem.Name = "imágenesToolStripMenuItem";
             this.imágenesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.imágenesToolStripMenuItem.Text = "Imágenes";
+            this.imágenesToolStripMenuItem.Click += new System.EventHandler(this.imágenesToolStripMenuItem_Click);
             // 
             // webcamToolStripMenuItem
             // 
             this.webcamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contarPersonasToolStripMenuItem});
             this.webcamToolStripMenuItem.Name = "webcamToolStripMenuItem";
-            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
             this.webcamToolStripMenuItem.Text = "Webcam";
             // 
             // contarPersonasToolStripMenuItem
@@ -187,6 +188,7 @@
             this.contarPersonasToolStripMenuItem.Name = "contarPersonasToolStripMenuItem";
             this.contarPersonasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.contarPersonasToolStripMenuItem.Text = "Contar personas";
+            this.contarPersonasToolStripMenuItem.Click += new System.EventHandler(this.contarPersonasToolStripMenuItem_Click);
             // 
             // Videos
             // 
