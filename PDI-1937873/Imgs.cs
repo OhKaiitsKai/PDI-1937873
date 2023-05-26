@@ -69,23 +69,18 @@ namespace PDI_1937873
             {
                 case "Sepia":
                     ApplySepiaFilter();
-                    GetRGBValuesFromImage();
                     break;
                 case "B/N":
                     ConvertToBlackAndWhite();
-                    GetRGBValuesFromImage();
                     break;
                 case "Pixel":
                     ApplyPixelFilter();
-                    GetRGBValuesFromImage();
                     break;
                 case "Negativo":
                     ApplyNegativeFilter();
-                    GetRGBValuesFromImage();
                     break;
                 case "Binario":
                     ApplyBinaryFilter();
-                    GetRGBValuesFromImage();
                     break;
                     default: break;
             }
@@ -121,6 +116,8 @@ namespace PDI_1937873
             // Muestra la imagen con el filtro aplicado
             pictureBox2.Image = filteredImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            // RGB
+            GetRGBValuesFromImage();
         }
         private Color ApplyBinaryFilterToColor(Color color)
         {
@@ -163,6 +160,8 @@ namespace PDI_1937873
             // Muestra la imagen con el filtro aplicado
             pictureBox2.Image = filteredImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            // RGB
+            GetRGBValuesFromImage();
         }
         private Color ApplyNegativeFilterToColor(Color color)
         {
@@ -211,6 +210,8 @@ namespace PDI_1937873
             // Muestra la imagen con el filtro aplicado
             pictureBox2.Image = filteredImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            // RGB
+            GetRGBValuesFromImage();
         }
         
         private void ConvertToBlackAndWhite()
@@ -253,6 +254,8 @@ namespace PDI_1937873
             // Muestra la imagen con el filtro aplicado
             pictureBox2.Image = filteredImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            // RGB
+            GetRGBValuesFromImage();
         }
 
         private void ApplySepiaFilter()
@@ -292,6 +295,8 @@ namespace PDI_1937873
             // Muestra la imagen con el filtro aplicado
             pictureBox2.Image = filteredImage;
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            // RGB
+            GetRGBValuesFromImage();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -325,25 +330,43 @@ namespace PDI_1937873
         }
         private void GetRGBValuesFromImage()
         {
-            // Check if an image is displayed in pictureBox2
+            // Comprueba si hay una imagen
             if (pictureBox2.Image == null)
             {
                 MessageBox.Show("No hay imagen disponible.");
                 return;
             }
 
-            // Get the color of a pixel in pictureBox2
-            int pixelX = 0; // X-coordinate of the pixel
-            int pixelY = 0; // Y-coordinate of the pixel
+            // Obtiene el color de pixeles
+            int pixelX = 0; // X-coordenada del pixel
+            int pixelY = 0; // Y-coordenada del pixel
             Color pixelColor = ((Bitmap)pictureBox2.Image).GetPixel(pixelX, pixelY);
 
-            // Update the trackBar and textBox values
-            trackBar1.Value = pixelColor.R;
-            trackBar2.Value = pixelColor.G;
-            trackBar3.Value = pixelColor.B;
-            textBox1.Text = pixelColor.R.ToString();
-            textBox2.Text = pixelColor.G.ToString();
-            textBox3.Text = pixelColor.B.ToString();
+            // Actualiza
+            int r = pixelColor.R;
+            int g = pixelColor.G;
+            int b = pixelColor.B;
+
+            // Ensure that the values are within the valid range
+            r = Math.Max(0, Math.Min(255, r));
+            g = Math.Max(0, Math.Min(255, g));
+            b = Math.Max(0, Math.Min(255, b));
+
+            trackBar1.Minimum = 0;
+            trackBar1.Maximum = 255;
+            trackBar1.Value = r;
+
+            trackBar2.Minimum = 0;
+            trackBar2.Maximum = 255;
+            trackBar2.Value = g;
+
+            trackBar3.Minimum = 0;
+            trackBar3.Maximum = 255;
+            trackBar3.Value = b;
+
+            textBox1.Text = r.ToString();
+            textBox2.Text = g.ToString();
+            textBox3.Text = b.ToString();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
