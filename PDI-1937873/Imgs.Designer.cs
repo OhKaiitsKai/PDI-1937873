@@ -35,6 +35,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
@@ -44,8 +46,6 @@
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webcamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contarPersonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -86,6 +86,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(416, 145);
             this.comboBox1.Name = "comboBox1";
@@ -135,6 +136,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "R G B";
             // 
+            // textBox3
+            // 
+            this.textBox3.ForeColor = System.Drawing.Color.Blue;
+            this.textBox3.Location = new System.Drawing.Point(271, 179);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(53, 38);
+            this.textBox3.TabIndex = 5;
+            // 
+            // textBox2
+            // 
+            this.textBox2.ForeColor = System.Drawing.Color.Green;
+            this.textBox2.Location = new System.Drawing.Point(271, 117);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(53, 38);
+            this.textBox2.TabIndex = 4;
+            // 
             // textBox1
             // 
             this.textBox1.ForeColor = System.Drawing.Color.Red;
@@ -148,6 +167,7 @@
             // trackBar3
             // 
             this.trackBar3.BackColor = System.Drawing.Color.Blue;
+            this.trackBar3.Enabled = false;
             this.trackBar3.Location = new System.Drawing.Point(6, 161);
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(259, 56);
@@ -156,6 +176,7 @@
             // trackBar2
             // 
             this.trackBar2.BackColor = System.Drawing.Color.Green;
+            this.trackBar2.Enabled = false;
             this.trackBar2.Location = new System.Drawing.Point(6, 99);
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(259, 56);
@@ -164,6 +185,7 @@
             // trackBar1
             // 
             this.trackBar1.BackColor = System.Drawing.Color.Red;
+            this.trackBar1.Enabled = false;
             this.trackBar1.Location = new System.Drawing.Point(6, 37);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(259, 56);
@@ -177,7 +199,7 @@
             this.webcamToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1171, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1171, 30);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -186,7 +208,7 @@
             this.filtroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.videoToolStripMenuItem});
             this.filtroToolStripMenuItem.Name = "filtroToolStripMenuItem";
-            this.filtroToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.filtroToolStripMenuItem.Size = new System.Drawing.Size(63, 26);
             this.filtroToolStripMenuItem.Text = "Filtros";
             // 
             // videoToolStripMenuItem
@@ -201,7 +223,7 @@
             this.webcamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contarPersonasToolStripMenuItem});
             this.webcamToolStripMenuItem.Name = "webcamToolStripMenuItem";
-            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
             this.webcamToolStripMenuItem.Text = "Webcam";
             // 
             // contarPersonasToolStripMenuItem
@@ -210,24 +232,6 @@
             this.contarPersonasToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
             this.contarPersonasToolStripMenuItem.Text = "Contar personas";
             this.contarPersonasToolStripMenuItem.Click += new System.EventHandler(this.contarPersonasToolStripMenuItem_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.ForeColor = System.Drawing.Color.Green;
-            this.textBox2.Location = new System.Drawing.Point(271, 117);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(53, 38);
-            this.textBox2.TabIndex = 4;
-            // 
-            // textBox3
-            // 
-            this.textBox3.ForeColor = System.Drawing.Color.Blue;
-            this.textBox3.Location = new System.Drawing.Point(271, 179);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(53, 38);
-            this.textBox3.TabIndex = 5;
             // 
             // Imgs
             // 
