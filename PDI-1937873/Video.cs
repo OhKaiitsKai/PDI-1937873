@@ -13,6 +13,8 @@ namespace PDI_1937873
 {
     public partial class Videos : Form
     {
+        private Func<Bitmap, Bitmap> filterFunction; // Almacena la función de filtro seleccionada
+        private VideoPlayer videoPlayer;
         public Videos()
         {
             InitializeComponent();
@@ -41,7 +43,7 @@ namespace PDI_1937873
             comboBox1.Items.Add("Binario");
             comboBox1.SelectedIndex = -1;
         }
-        private VideoPlayer videoPlayer;
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -54,65 +56,85 @@ namespace PDI_1937873
                 videoPlayer.PlayVideo();
             }
         }
-
+        
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedAction = comboBox1.SelectedItem.ToString();
-            switch (selectedAction)
+            if (comboBox1.SelectedItem != null)
             {
-                case "Sepia":
-                    ApplyFilter(ApplySepiaFilter);
-                    break;
-                case "B/N":
-                    ApplyFilter(ConvertToBlackAndWhite);
-                    break;
-                case "Pixel":
-                    ApplyFilter(ApplyPixelFilter);
-                    break;
-                case "Negativo":
-                    ApplyFilter(ApplyNegativeFilter);
-                    break;
-                case "Binario":
-                    ApplyFilter(ApplyBinaryFilter);
-                    break;
-                default: break;
+                string selectedAction = comboBox1.SelectedItem.ToString();
+                switch (selectedAction)
+                {
+                    case "Sepia":
+                        filterFunction = videoPlayer.ApplySepiaFilter; // Almacena la función de filtro
+                        break;
+                    case "B/N":
+                        filterFunction = videoPlayer.ConvertToBlackAndWhite;
+                        break;
+                    case "Pixel":
+                        filterFunction = videoPlayer.ApplyPixelFilter;
+                        break;
+                    case "Negativo":
+                        filterFunction = videoPlayer.ApplyNegativeFilter;
+                        break;
+                    case "Binario":
+                        filterFunction = videoPlayer.ApplyBinaryFilter;
+                        break;
+                    default:
+                        filterFunction = null;
+                        break;
+                }
+
+                // Asignar la función de filtro al campo FilterFunction del videoPlayer
+                videoPlayer.FilterFunction = filterFunction;
             }
         }
-        private void ApplyFilter(Action<Bitmap> filterAction)
+
+        private void button2_Click(object sender, EventArgs e)
         {
-            if (videoPlayer != null)
+            if (videoPlayer != null && videoPlayer.FilterFunction != null)
             {
-                //videoPlayer.ApplyFilter(filterAction);
+                if (videoPlayer.IsVideoOpen()) // Verificar si el archivo de video está abierto
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "AVI Video|*.avi";
+                    saveFileDialog.Title = "Guardar Video";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (VideoFileWriter writer = new VideoFileWriter())
+                        {
+                            writer.Open(saveFileDialog.FileName, videoPlayer.Width, videoPlayer.Height,
+                                (int)Math.Round(videoPlayer.Framerate), VideoCodec.MPEG4);
+
+                            for (int frameNumber = 0; frameNumber < videoPlayer.FrameCount; frameNumber++)
+                            {
+                                var frame = videoPlayer.ReadVideoFrameByFrameNumber(frameNumber);
+
+                                // Aplicar el filtro seleccionado al fotograma
+                                var filteredFrame = videoPlayer.FilterFunction(frame);
+
+                                writer.WriteVideoFrame(filteredFrame);
+
+                                filteredFrame.Dispose();
+                                frame.Dispose();
+                            }
+
+                            writer.Close();
+                        }
+
+                        MessageBox.Show("Video guardado exitosamente.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se ha abierto ningún archivo de video.");
+                }
             }
-        }
-        private void ApplySepiaFilter(Bitmap frame)
-        {
-            // Apply Sepia filter to the frame
-            // ...
-        }
-
-        private void ConvertToBlackAndWhite(Bitmap frame)
-        {
-            // Convert the frame to black and white
-            // ...
-        }
-
-        private void ApplyPixelFilter(Bitmap frame)
-        {
-            // Apply a pixel filter to the frame
-            // ...
-        }
-
-        private void ApplyNegativeFilter(Bitmap frame)
-        {
-            // Apply a negative filter to the frame
-            // ...
-        }
-
-        private void ApplyBinaryFilter(Bitmap frame)
-        {
-            // Apply a binary filter to the frame
-            // ...
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ningún filtro.");
+            }
         }
     }
-}
+    }
+
