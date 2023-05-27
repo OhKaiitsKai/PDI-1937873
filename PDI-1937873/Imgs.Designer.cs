@@ -46,6 +46,7 @@
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webcamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contarPersonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -199,7 +200,7 @@
             this.webcamToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1171, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1171, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -208,7 +209,7 @@
             this.filtroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.videoToolStripMenuItem});
             this.filtroToolStripMenuItem.Name = "filtroToolStripMenuItem";
-            this.filtroToolStripMenuItem.Size = new System.Drawing.Size(63, 26);
+            this.filtroToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.filtroToolStripMenuItem.Text = "Filtros";
             // 
             // videoToolStripMenuItem
@@ -223,7 +224,7 @@
             this.webcamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contarPersonasToolStripMenuItem});
             this.webcamToolStripMenuItem.Name = "webcamToolStripMenuItem";
-            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
+            this.webcamToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.webcamToolStripMenuItem.Text = "Webcam";
             // 
             // contarPersonasToolStripMenuItem
@@ -233,12 +234,26 @@
             this.contarPersonasToolStripMenuItem.Text = "Contar personas";
             this.contarPersonasToolStripMenuItem.Click += new System.EventHandler(this.contarPersonasToolStripMenuItem_Click);
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Indigo;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
+            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button3.Location = new System.Drawing.Point(465, 195);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(228, 104);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Histograma";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Imgs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Thistle;
             this.ClientSize = new System.Drawing.Size(1171, 572);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -285,6 +300,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button3;
     }
 }
 

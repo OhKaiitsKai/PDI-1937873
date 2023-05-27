@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace PDI_1937873
 {
@@ -65,7 +66,7 @@ namespace PDI_1937873
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedAction = comboBox1.SelectedItem.ToString();
-            switch(selectedAction)
+            switch (selectedAction)
             {
                 case "Sepia":
                     ApplySepiaFilter();
@@ -82,7 +83,7 @@ namespace PDI_1937873
                 case "Binario":
                     ApplyBinaryFilter();
                     break;
-                    default: break;
+                default: break;
             }
         }
 
@@ -213,7 +214,7 @@ namespace PDI_1937873
             // RGB
             GetRGBValuesFromImage();
         }
-        
+
         private void ConvertToBlackAndWhite()
         {
             // Verificar si hay una imagen
@@ -373,6 +374,84 @@ namespace PDI_1937873
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Verificar si hay una imagen cargada en pictureBox2
+            if (pictureBox2.Image == null)
+            {
+                MessageBox.Show("No hay imagen disponible.");
+                return;
+            }
+
+            // Crear un objeto Bitmap a partir de la imagen en pictureBox2
+            Bitmap image = new Bitmap(pictureBox2.Image);
+
+            // Crear una lista para almacenar los valores de intensidad de cada componente de color (R, G, B)
+            List<int>[] colorValues = new List<int>[3];
+            for (int i = 0; i < 3; i++)
+            {
+                colorValues[i] = new List<int>();
+            }
+
+            // Recorrer cada píxel de la imagen y almacenar los valores de intensidad en la lista correspondiente
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color pixelColor = image.GetPixel(x, y);
+                    colorValues[0].Add(pixelColor.R); // Componente Rojo
+                    colorValues[1].Add(pixelColor.G); // Componente Verde
+                    colorValues[2].Add(pixelColor.B); // Componente Azul
+                }
+            }
+
+            // Crear una instancia de ZedGraph
+            ZedGraphControl zedGraphControl = new ZedGraphControl();
+            zedGraphControl.Width = 800;
+            zedGraphControl.Height = 400;
+
+            // Crear un objeto GraphPane para configurar el gráfico
+            GraphPane graphPane = zedGraphControl.GraphPane;
+            graphPane.Title.Text = "Histograma de Color";
+            graphPane.XAxis.Title.Text = "Valor de Intensidad";
+            graphPane.YAxis.Title.Text = "Frecuencia";
+
+            // Crear objetos PointPairList para almacenar los puntos del histograma de cada componente de color
+            PointPairList[] pointPairLists = new PointPairList[3];
+            for (int i = 0; i < 3; i++)
+            {
+                pointPairLists[i] = new PointPairList();
+            }
+
+            // Calcular la frecuencia de cada valor de intensidad y agregarlos a los PointPairList correspondientes
+            for (int i = 0; i < 3; i++)
+            {
+                int[] histogram = new int[256]; // Histograma con 256 bins (valores de intensidad)
+                foreach (int value in colorValues[i])
+                {
+                    histogram[value]++;
+                }
+                for (int j = 0; j < 256; j++)
+                {
+                    pointPairLists[i].Add(j, histogram[j]);
+                }
+            }
+
+            // Agregar curvas al gráfico para cada componente de color
+            LineItem[] lineItems = new LineItem[3];
+            string[] colorNames = { "Rojo", "Verde", "Azul" };
+            for (int i = 0; i < 3; i++)
+            {
+                lineItems[i] = graphPane.AddCurve(colorNames[i], pointPairLists[i], Color.Red, SymbolType.None);
+            }
+
+            // Mostrar el gráfico en un formulario
+            Form graphForm = new Form();
+            graphForm.Width = zedGraphControl.Width;
+            graphForm.Height = zedGraphControl.Height;
+            graphForm.Controls.Add(zedGraphControl);
+            graphForm.ShowDialog();
+        }
     }
-   
 }
