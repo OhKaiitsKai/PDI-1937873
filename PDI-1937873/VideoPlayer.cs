@@ -39,7 +39,13 @@ namespace PDI_1937873
         // Método para abrir el archivo de video
         public void OpenVideo(string videoFilePath)
         {
-            // Código para abrir el archivo de video
+            videoFileReader.Close();  // Cerrar el archivo de video anterior, si estaba abierto
+
+            videoFileReader.Open(videoFilePath);  // Abrir el nuevo archivo de video
+
+            // Restablecer el rango del control TrackBar para reflejar la cantidad de fotogramas
+            trackBar.Minimum = 0;
+            trackBar.Maximum = (int)videoFileReader.FrameCount - 1;
 
             // Establecer isVideoOpen en true si el archivo se abrió correctamente
             isVideoOpen = true;
@@ -256,6 +262,44 @@ namespace PDI_1937873
             }
             return null;
         }
+        public void SaveVideoWithFilter(string outputFilename)
+        {
+            string tempVideoFilename = "temp.avi"; // Nombre temporal del archivo de video
+
+            using (VideoFileWriter writer = new VideoFileWriter())
+            {
+                // Configurar el escritor de video con las mismas propiedades que el lector de video
+                writer.Open(tempVideoFilename, videoFileReader.Width, videoFileReader.Height, (int)videoFileReader.FrameRate, VideoCodec.MPEG4);
+
+                // Reproducir y guardar cada fotograma con el filtro aplicado
+                for (int frameNumber = 0; frameNumber < videoFileReader.FrameCount; frameNumber++)
+                {
+                    var frame = videoFileReader.ReadVideoFrame();
+
+                    // Aplicar el filtro seleccionado al fotograma
+                    if (filterFunction != null)
+                    {
+                        frame = filterFunction(frame);
+                    }
+
+                    writer.WriteVideoFrame(frame); // Escribir el fotograma filtrado en el archivo de video
+
+                    frame.Dispose();
+                }
+
+                writer.Close(); // Cerrar el escritor de video
+            }
+
+            // Renombrar el archivo temporal al nombre de archivo deseado
+            if (System.IO.File.Exists(outputFilename))
+            {
+                System.IO.File.Delete(outputFilename);
+            }
+            System.IO.File.Move(tempVideoFilename, outputFilename);
+
+            MessageBox.Show("El video filtrado se ha guardado exitosamente.", "Guardar");
+        }
+
     }
 }
 

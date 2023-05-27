@@ -53,7 +53,8 @@ namespace PDI_1937873
             {
                 string videoPath = openFileDialog.FileName;
                 videoPlayer = new VideoPlayer(videoPath, pictureBox1, trackBar4);
-                videoPlayer.PlayVideo();
+                videoPlayer.OpenVideo(videoPath); // Abre el archivo de video
+                videoPlayer.PlayVideo(); // Inicia la reproducción del video
             }
         }
         
@@ -85,7 +86,10 @@ namespace PDI_1937873
                 }
 
                 // Asignar la función de filtro al campo FilterFunction del videoPlayer
-                videoPlayer.FilterFunction = filterFunction;
+                if (videoPlayer != null)
+                {
+                    videoPlayer.FilterFunction = filterFunction;
+                }
             }
         }
 
@@ -101,27 +105,7 @@ namespace PDI_1937873
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        using (VideoFileWriter writer = new VideoFileWriter())
-                        {
-                            writer.Open(saveFileDialog.FileName, videoPlayer.Width, videoPlayer.Height,
-                                (int)Math.Round(videoPlayer.Framerate), VideoCodec.MPEG4);
-
-                            for (int frameNumber = 0; frameNumber < videoPlayer.FrameCount; frameNumber++)
-                            {
-                                var frame = videoPlayer.ReadVideoFrameByFrameNumber(frameNumber);
-
-                                // Aplicar el filtro seleccionado al fotograma
-                                var filteredFrame = videoPlayer.FilterFunction(frame);
-
-                                writer.WriteVideoFrame(filteredFrame);
-
-                                filteredFrame.Dispose();
-                                frame.Dispose();
-                            }
-
-                            writer.Close();
-                        }
-
+                        videoPlayer.SaveVideoWithFilter(saveFileDialog.FileName);
                         MessageBox.Show("Video guardado exitosamente.");
                     }
                 }
@@ -134,6 +118,11 @@ namespace PDI_1937873
             {
                 MessageBox.Show("No se ha seleccionado ningún filtro.");
             }
+        }
+
+        private void Videos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();    
         }
     }
     }

@@ -245,6 +245,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Videos";
             this.Text = "Vídeos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Videos_FormClosed);
             this.Load += new System.EventHandler(this.Videos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
