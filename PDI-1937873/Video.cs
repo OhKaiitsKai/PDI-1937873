@@ -15,10 +15,12 @@ namespace PDI_1937873
     {
         private Func<Bitmap, Bitmap> filterFunction; // Almacena la función de filtro seleccionada
         private VideoPlayer videoPlayer;
+        private bool isFilterSelected;
         public Videos()
         {
             InitializeComponent();
-        }
+            isFilterSelected = false;
+    }
 
         private void imágenesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -42,6 +44,8 @@ namespace PDI_1937873
             comboBox1.Items.Add("Negativo");
             comboBox1.Items.Add("Binario");
             comboBox1.SelectedIndex = -1;
+
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
         
 
@@ -85,19 +89,21 @@ namespace PDI_1937873
                         break;
                 }
 
-                // Asignar la función de filtro al campo FilterFunction del videoPlayer
+                // Asignar la función de filtro al campo FilterFunction del videoPlayer si no es nulo
                 if (videoPlayer != null)
                 {
-                    videoPlayer.FilterFunction = filterFunction;
+                    videoPlayer.SetFilterFunction(filterFunction);
                 }
+                isFilterSelected = (filterFunction != null);
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (videoPlayer != null && videoPlayer.FilterFunction != null)
+            if (videoPlayer != null && isFilterSelected) // Verificar si se ha seleccionado un filtro
             {
-                if (videoPlayer.IsVideoOpen()) // Verificar si el archivo de video está abierto
+                if (videoPlayer.IsVideoOpen())
                 {
                     SaveFileDialog saveFileDialog = new SaveFileDialog();
                     saveFileDialog.Filter = "AVI Video|*.avi";
@@ -106,17 +112,12 @@ namespace PDI_1937873
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         videoPlayer.SaveVideoWithFilter(saveFileDialog.FileName);
-                        MessageBox.Show("Video guardado exitosamente.");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("No se ha abierto ningún archivo de video.");
                 }
             }
             else
             {
-                MessageBox.Show("No se ha seleccionado ningún filtro.");
+                MessageBox.Show("No se ha seleccionado un filtro válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

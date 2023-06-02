@@ -311,6 +311,7 @@ namespace PDI_1937873
             MessageBox.Show("El video filtrado se ha guardado exitosamente.", "Guardar");
         }
 
+
         public void PlayFilteredVideo()
         {
             // Cerrar el video actual
