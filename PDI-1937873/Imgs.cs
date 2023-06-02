@@ -17,6 +17,9 @@ namespace PDI_1937873
         public Imgs()
         {
             InitializeComponent();
+            comboBox1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
         }
 
         private void contarPersonasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,6 +53,9 @@ namespace PDI_1937873
                 pictureBox1.Image = Image.FromFile(imagePath);
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             }
+            comboBox1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
         }
 
         private void Imgs_Load(object sender, EventArgs e)
@@ -452,6 +458,11 @@ namespace PDI_1937873
             graphForm.Height = zedGraphControl.Height;
             graphForm.Controls.Add(zedGraphControl);
             graphForm.ShowDialog();
+        }
+
+        private void Imgs_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

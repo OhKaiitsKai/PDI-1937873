@@ -46,6 +46,9 @@ namespace PDI_1937873
             comboBox1.SelectedIndex = -1;
 
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
         }
         
 
@@ -60,6 +63,8 @@ namespace PDI_1937873
                 videoPlayer.OpenVideo(videoPath); // Abre el archivo de video
                 videoPlayer.PlayVideo(); // Inicia la reproducción del video
             }
+            button1.Visible= false;
+            comboBox1.Enabled = true;
         }
         
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -95,6 +100,7 @@ namespace PDI_1937873
                     videoPlayer.SetFilterFunction(filterFunction);
                 }
                 isFilterSelected = (filterFunction != null);
+                button2.Enabled = true;
             }
 
         }
@@ -102,7 +108,9 @@ namespace PDI_1937873
         private void button2_Click(object sender, EventArgs e)
         {
             if (videoPlayer != null && isFilterSelected) // Verificar si se ha seleccionado un filtro
-            {
+            { 
+                label1.Visible= false;
+                comboBox1.Visible = false;
                 if (videoPlayer.IsVideoOpen())
                 {
                     SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -114,6 +122,8 @@ namespace PDI_1937873
                         videoPlayer.SaveVideoWithFilter(saveFileDialog.FileName);
                     }
                 }
+                button2.Visible = false;
+                button3.Enabled = true;
             }
             else
             {
@@ -130,6 +140,10 @@ namespace PDI_1937873
         {
                 videoPlayer.PlayFilteredVideo();
         }
+        //private void Video_ControlRemoved()
+        //{
+        //
+        //}
     }
     }
 
