@@ -124,6 +124,11 @@ namespace PDI_1937873
         {
             Application.Exit();    
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+                videoPlayer.PlayFilteredVideo();
+        }
     }
     }
 

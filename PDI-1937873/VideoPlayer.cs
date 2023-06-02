@@ -262,32 +262,40 @@ namespace PDI_1937873
             }
             return null;
         }
+        private string filteredVideoPath;
         public void SaveVideoWithFilter(string outputFilename)
         {
             string tempVideoFilename = "temp.avi"; // Nombre temporal del archivo de video
 
-            using (VideoFileWriter writer = new VideoFileWriter())
+            using (VideoFileReader reader = new VideoFileReader())
             {
-                // Configurar el escritor de video con las mismas propiedades que el lector de video
-                writer.Open(tempVideoFilename, videoFileReader.Width, videoFileReader.Height, (int)videoFileReader.FrameRate, VideoCodec.MPEG4);
+                reader.Open(videoPath); // Abrir el archivo de video original
 
-                // Reproducir y guardar cada fotograma con el filtro aplicado
-                for (int frameNumber = 0; frameNumber < videoFileReader.FrameCount; frameNumber++)
+                using (VideoFileWriter writer = new VideoFileWriter())
                 {
-                    var frame = videoFileReader.ReadVideoFrame();
+                    // Configurar el escritor de video con las mismas propiedades que el lector de video
+                    writer.Open(tempVideoFilename, reader.Width, reader.Height, (int)reader.FrameRate, VideoCodec.MPEG4);
 
-                    // Aplicar el filtro seleccionado al fotograma
-                    if (filterFunction != null)
+                    // Reproducir y guardar cada fotograma con el filtro aplicado
+                    for (int frameNumber = 0; frameNumber < reader.FrameCount; frameNumber++)
                     {
-                        frame = filterFunction(frame);
+                        var frame = reader.ReadVideoFrame();
+
+                        // Aplicar el filtro seleccionado al fotograma
+                        if (filterFunction != null)
+                        {
+                            frame = filterFunction(frame);
+                        }
+
+                        writer.WriteVideoFrame(frame); // Escribir el fotograma filtrado en el archivo de video
+
+                        frame.Dispose();
                     }
 
-                    writer.WriteVideoFrame(frame); // Escribir el fotograma filtrado en el archivo de video
-
-                    frame.Dispose();
+                    writer.Close(); // Cerrar el escritor de video
                 }
 
-                writer.Close(); // Cerrar el escritor de video
+                reader.Close(); // Cerrar el lector de video
             }
 
             // Renombrar el archivo temporal al nombre de archivo deseado
@@ -297,9 +305,27 @@ namespace PDI_1937873
             }
             System.IO.File.Move(tempVideoFilename, outputFilename);
 
+            // Guardar la ruta del video filtrado
+            filteredVideoPath = outputFilename;
+
             MessageBox.Show("El video filtrado se ha guardado exitosamente.", "Guardar");
         }
 
+        public void PlayFilteredVideo()
+        {
+            // Cerrar el video actual
+            videoFileReader.Close();
+
+            // Abrir el video filtrado
+            videoFileReader.Open(filteredVideoPath);
+
+            // Restablecer el estado inicial
+            currentFrame = 0;
+            trackBar.Value = 0;
+
+            // Reproducir el video filtrado
+            PlayVideo();
+        }
     }
 }
 
